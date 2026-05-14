@@ -23,11 +23,10 @@ public class mTarea {
             // Buffer temporal que se encarga de guardar los datos en el archivo
             BufferedWriter buffer = new BufferedWriter(archivo);
 
-            // Escribe en el archivo de texto
             buffer.write(cadenaArticulo);
-            // Agrega un salto de linea al registro
+
             buffer.newLine();
-            // Guarda los registros en el archivo
+
             buffer.close();
 
         } catch (IOException e) {
@@ -45,7 +44,6 @@ public class mTarea {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split("\\|");
 
-                // 1. Corregimos el formato: agregamos espacios y cambiamos ';' por ':'
                 String datoBonito = "ID: " + datos[0] + "| Titulo: " + datos[1] + "| Descripcion: " + datos[2] + "| Fecha de Entrega: " + datos[3] + "| Prioridad: " + datos[4] + "| Estado: " + datos[5];
 
                 listaRegistros.add(datoBonito);
@@ -71,7 +69,6 @@ public class mTarea {
                 String[] datosLeidos = lineaLeida.split("\\|");
                 String[] datosActuales = lineActual.split("\\|");
 
-                // Comparamos por el primer campo (el ID) para saber cual editar
                 if (datosLeidos.length > 0 && datosActuales.length > 0
                         && datosLeidos[0].trim().equals(datosActuales[0].trim())) {
                     bw.write(lineaNueva);
@@ -86,7 +83,37 @@ public class mTarea {
             System.out.println("Error al actualizar: " + e.getMessage());
         }
 
-        // Reemplazar el archivo original con el temporal
+        if (fileOriginal.delete()) {
+            fileTemporal.renameTo(fileOriginal);
+        } else {
+            System.out.println("No se pudo reemplazar el archivo original");
+        }
+    }
+    
+        public void eliminarRegistro(String lineActual, String archivoOriginal) {
+        java.io.File fileOriginal = new java.io.File(archivoOriginal);
+        java.io.File fileTemporal = new java.io.File("temporal.txt");
+
+        String lineaLeida;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileOriginal));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(fileTemporal))) {
+
+            while ((lineaLeida = br.readLine()) != null) {
+                String[] datosLeidos = lineaLeida.split("\\|");
+                String[] datosActuales = lineActual.split("\\|");
+
+                if (!(datosLeidos.length > 0 && datosActuales.length > 0
+                        && datosLeidos[0].trim().equals(datosActuales[0].trim()))) {
+                    bw.write(lineaLeida);
+                    bw.newLine();
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al eliminar: " + e.getMessage());
+        }
+
         if (fileOriginal.delete()) {
             fileTemporal.renameTo(fileOriginal);
         } else {

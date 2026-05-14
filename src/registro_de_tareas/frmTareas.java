@@ -19,7 +19,6 @@ public class frmTareas extends javax.swing.JFrame {
         initComponents();
     }
     
-    // Variable para guardar la tarea original que se selecciono en la lista
     clsTareas UpdateTarea;
 
     @SuppressWarnings("unchecked")
@@ -46,7 +45,7 @@ public class frmTareas extends javax.swing.JFrame {
         lstClientes = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -70,7 +69,7 @@ public class frmTareas extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -161,7 +160,7 @@ public class frmTareas extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Tarea"));
 
         lstClientes.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Historial de busqueda..." };
+            String[] strings = { "Historial de búsqueda..." };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -170,8 +169,8 @@ public class frmTareas extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar Tarea: ");
 
-        jButton1.setText("BUSCAR");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -186,7 +185,7 @@ public class frmTareas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(jButton1)))
+                        .addComponent(btnBuscar)))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -196,7 +195,7 @@ public class frmTareas extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnBuscar))
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -293,7 +292,8 @@ public class frmTareas extends javax.swing.JFrame {
 
         jLabel22.setText("Estado:");
 
-        jButton4.setText("ELIMINAR");
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
         jLabel23.setText("jLabel23");
 
@@ -337,7 +337,7 @@ public class frmTareas extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(btnEliminar)
                         .addGap(114, 114, 114)))
                 .addGap(41, 41, 41))
         );
@@ -370,7 +370,7 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(jLabel22)
                     .addComponent(jLabel28))
                 .addGap(64, 64, 64)
-                .addComponent(jButton4)
+                .addComponent(btnEliminar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -419,13 +419,12 @@ public class frmTareas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Verificamos que haya una tarea seleccionada antes de actualizar
+
         if (UpdateTarea == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Primero selecciona una tarea de la lista!");
             return;
         }
         
-        // Tomamos los datos nuevos que escribio el usuario en los campos
         Integer newId = Integer.parseInt(txtID1.getText().trim());
         String newTitulo = txtTitulo1.getText().trim();
         String newDescripcion = txtDescripcion1.getText().trim();
@@ -433,29 +432,28 @@ public class frmTareas extends javax.swing.JFrame {
         String newPrioridad = txtPrioridad1.getText().trim();
         Boolean newEstado = Boolean.valueOf(txtEstado1.getText().trim());
         
-        // Llamamos al metodo actualizar del objeto original con los nuevos valores
         UpdateTarea.actualizar(newId, newTitulo, newDescripcion, newEntrega, newPrioridad, newEstado);
         
         javax.swing.JOptionPane.showMessageDialog(this, "Tarea actualizada correctamente!");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Cargamos todas las tareas del archivo y las ponemos en la lista
+
         clsTareas cTareas = new clsTareas(0, "", "", "", "", false);
         lstClientes.setModel(cTareas.llenarLista());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void lstClientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClientesValueChanged
-        // Solo ejecutamos cuando el usuario termina de seleccionar
+
         if (!evt.getValueIsAdjusting()) {
             String registroSeleccionado = lstClientes.getSelectedValue();
 
             if (registroSeleccionado != null) {
-                // Separamos los datos usando el | como separador
+
                 String[] datos = registroSeleccionado.split("\\|");
 
                 if (datos.length >= 6) {
-                    // Limpiamos las etiquetas de texto que vienen en cada campo
+
                     String id         = datos[0].replace("ID: ", "").trim();
                     String titulo     = datos[1].replace(" Titulo: ", "").trim();
                     String descripcion = datos[2].replace(" Descripcion: ", "").trim();
@@ -463,7 +461,7 @@ public class frmTareas extends javax.swing.JFrame {
                     String prioridad  = datos[4].replace(" Prioridad: ", "").trim();
                     String estado     = datos[5].replace(" Estado: ", "").trim();
 
-                    // Llenamos los campos del panel de actualizacion
+
                     txtID1.setText(id);
                     txtTitulo1.setText(titulo);
                     txtDescripcion1.setText(descripcion);
@@ -471,7 +469,6 @@ public class frmTareas extends javax.swing.JFrame {
                     txtPrioridad1.setText(prioridad);
                     txtEstado1.setText(estado);
 
-                    // Llenamos las etiquetas del panel de eliminar
                     jLabel23.setText(id);
                     jLabel24.setText(titulo);
                     jLabel25.setText(descripcion);
@@ -479,8 +476,6 @@ public class frmTareas extends javax.swing.JFrame {
                     jLabel27.setText(prioridad);
                     jLabel28.setText(estado);
 
-                    // Guardamos el objeto original con los datos actuales
-                    // para que el metodo actualizar sepa cual linea reemplazar en el archivo
                     UpdateTarea = new clsTareas(
                         Integer.parseInt(id),
                         titulo,
@@ -493,6 +488,26 @@ public class frmTareas extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lstClientesValueChanged
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if (UpdateTarea != null) {
+            int respuesta = javax.swing.JOptionPane.showConfirmDialog(this,
+                    "¿Deseas eliminar la tarea: " + UpdateTarea.getDescripcion()+ "?",
+                    "Eliminación de la tarea.",
+                    javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
+
+            if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
+                UpdateTarea.eliminar();
+                javax.swing.JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito");
+                jButton1ActionPerformed(null);
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        clsTareas cTareas = new clsTareas(0, "", "", "", "", false);
+        lstClientes.setModel(cTareas.llenarLista());
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -513,10 +528,10 @@ public class frmTareas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

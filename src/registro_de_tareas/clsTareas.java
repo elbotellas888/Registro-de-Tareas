@@ -30,7 +30,6 @@ public class clsTareas {
     }    
     
     public String aTexto() {
-        // Solo retornamos la cadena, no imprimimos aqui
         return this.id + "|" + this.titulo + "|" + this.descripcion + "|" + this.entrega + "|" + this.prioridad + "|" + this.estado;
     }
     
@@ -38,7 +37,6 @@ public class clsTareas {
         return this.descripcion;
     }
 
-    // guardar informacion
     public void guardar() {
         mTarea tarea = new mTarea();
         String textoTarea = this.aTexto();
@@ -61,19 +59,23 @@ public class clsTareas {
     }
     
     public void actualizar(Integer newID, String newTitulo, String newDescripcion, String newEntrega, String newPrioridad, Boolean newEstado){
-        // Guardamos los valores originales antes de modificar
+
         String lineaOriginal = this.id + "|" + this.titulo + "|" + this.descripcion + "|" + this.entrega + "|" + this.prioridad + "|" + this.estado;
         
-        // Construimos la nueva linea con los datos nuevos
         String lineaNueva = newID + "|" + newTitulo + "|" + newDescripcion + "|" + newEntrega + "|" + newPrioridad + "|" + newEstado;
         
-        // Imprimir los nuevos valores
         System.out.println("Nuevos valores: " + lineaNueva);
         System.out.println("Valores Originales: " + lineaOriginal);
         
-        // Solicita la actualizacion del registro
         mTarea mTask = new mTarea();
         
         mTask.update(lineaOriginal, lineaNueva, "lista_tareas.txt"); 
+    }
+    
+        public void eliminar() {
+        String lineaOriginal = this.id + "|" + this.titulo + "|" + this.descripcion + "|" + this.entrega + "|" + this.prioridad + "|" + this.estado;
+
+        mTarea mTask = new mTarea();
+        mTask.eliminarRegistro(lineaOriginal, "lista_tareas.txt"); 
     }
 }
