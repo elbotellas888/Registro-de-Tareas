@@ -74,6 +74,6 @@ public class clsTareas {
         // Solicita la actualizacion del registro
         mTarea mTask = new mTarea();
         
-        mTask.update(lineaOriginal, lineaNueva, "lista_tareas.txt");
+        mTask.update(lineaOriginal, lineaNueva, "lista_tareas.txt"); 
     }
 }
