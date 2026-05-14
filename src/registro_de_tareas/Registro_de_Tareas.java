@@ -18,5 +18,5 @@ public class Registro_de_Tareas {
         ffrmTareas.setVisible(true);
     }
     
-    
+    //subete alv ´porfavor
 }
