@@ -4,6 +4,22 @@
  */
 package registro_de_tareas;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 /**
  *
  * @author martin
@@ -76,6 +92,12 @@ public class frmTareas extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jmiimportar = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jmiExportar = new javax.swing.JMenuItem();
+        pmiExportar = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,7 +143,7 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(txtEstado1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(166, 166, 166))
         );
@@ -186,7 +208,7 @@ public class frmTareas extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(btnBuscar)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +339,7 @@ public class frmTareas extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                        .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,7 +361,7 @@ public class frmTareas extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
                         .addGap(114, 114, 114)))
-                .addGap(41, 41, 41))
+                .addGap(18, 18, 18))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,6 +396,28 @@ public class frmTareas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jmiimportar.setText("Importar ");
+        jmiimportar.addActionListener(this::jmiimportarActionPerformed);
+
+        jMenuItem1.setText("Importar CSV");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        jmiimportar.add(jMenuItem1);
+
+        jmiExportar.setText("Exportar JSON");
+        jmiExportar.addActionListener(this::jmiExportarActionPerformed);
+        jmiimportar.add(jmiExportar);
+
+        pmiExportar.setText("Exportar PDF");
+        pmiExportar.addActionListener(this::pmiExportarActionPerformed);
+        jmiimportar.add(pmiExportar);
+
+        jMenuBar1.add(jmiimportar);
+
+        jMenu2.setText("Informacion");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -383,11 +427,11 @@ public class frmTareas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,9 +442,9 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -416,6 +460,7 @@ public class frmTareas extends javax.swing.JFrame {
                         Boolean.valueOf(txtEstado.getText().trim())
                 );
                 cTareas.guardar();
+                btnBuscarActionPerformed(null); // Actualiza la lista despues de guardar
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -435,6 +480,7 @@ public class frmTareas extends javax.swing.JFrame {
         UpdateTarea.actualizar(newId, newTitulo, newDescripcion, newEntrega, newPrioridad, newEstado);
         
         javax.swing.JOptionPane.showMessageDialog(this, "Tarea actualizada correctamente!");
+        btnBuscarActionPerformed(null); // Actualiza la lista despues de actualizar
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -499,7 +545,7 @@ public class frmTareas extends javax.swing.JFrame {
             if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
                 UpdateTarea.eliminar();
                 javax.swing.JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito");
-                jButton1ActionPerformed(null);
+                btnBuscarActionPerformed(null); // Actualiza la lista despues de eliminar
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -508,6 +554,128 @@ public class frmTareas extends javax.swing.JFrame {
         clsTareas cTareas = new clsTareas(0, "", "", "", "", false);
         lstClientes.setModel(cTareas.llenarLista());
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this,
+            "Asegúrate de que el archivo se llame 'tareas.csv' y esté en la raíz del proyecto.\nEl formato debe ser: ID,Titulo,Descripcion,Entrega,Prioridad,Estado",
+            "Importación de datos desde tareas.csv",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+        if (respuesta == JOptionPane.YES_OPTION) {
+            try (BufferedReader br = new BufferedReader(new FileReader("tareas.csv"));
+                 BufferedWriter bw = new BufferedWriter(new FileWriter("lista_tareas.txt", true))) {
+                
+                String linea;
+                int count = 0;
+                while ((linea = br.readLine()) != null) {
+                    // Asumimos que el CSV está separado por comas
+                    String[] datos = linea.split(",");
+                    if(datos.length >= 6) {
+                        // Lo convertimos al formato que usa tu TXT (separado por |)
+                        String lineaTxt = datos[0] + "|" + datos[1] + "|" + datos[2] + "|" + datos[3] + "|" + datos[4] + "|" + datos[5];
+                        bw.write(lineaTxt);
+                        bw.newLine();
+                        count++;
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "Se importaron " + count + " tareas correctamente.");
+                btnBuscarActionPerformed(null); // Actualiza la lista en la pantalla
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al importar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jmiExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExportarActionPerformed
+        try {
+            List<clsTareas> listaTareas = new ArrayList<>();
+            BufferedReader br = new BufferedReader(new FileReader("lista_tareas.txt"));
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\\|");
+
+                if (datos.length >= 6) {
+                    clsTareas nuevaTarea = new clsTareas(
+                        Integer.parseInt(datos[0].trim()),
+                        datos[1].trim(),
+                        datos[2].trim(),
+                        datos[3].trim(),
+                        datos[4].trim(),
+                        Boolean.valueOf(datos[5].trim())
+                    );
+                    listaTareas.add(nuevaTarea);
+                }
+            }
+            br.close();
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonFinal = gson.toJson(listaTareas);
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter("tareas_completo.json"));
+            bw.write(jsonFinal);
+            bw.close();
+
+            JOptionPane.showMessageDialog(this, "¡Exportación a JSON exitosa!");
+
+        } catch (Exception e) {
+            System.out.println("Error durante la exportación a JSON: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jmiExportarActionPerformed
+
+    private void pmiExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmiExportarActionPerformed
+        Document documento = new Document();
+
+        try {
+            PdfWriter.getInstance(documento, new FileOutputStream("Reporte_Tareas.pdf"));
+            documento.open();
+
+            documento.add(new Paragraph("Reporte Gerencial de Tareas"));
+            documento.add(new Paragraph(" "));
+
+            // Creamos la estructura tabular (6 columnas para TAREAS)
+            PdfPTable tabla = new PdfPTable(6);
+            tabla.addCell("ID");
+            tabla.addCell("TITULO");
+            tabla.addCell("DESCRIPCION");
+            tabla.addCell("ENTREGA");
+            tabla.addCell("PRIORIDAD");
+            tabla.addCell("ESTADO");
+
+            // Lectura de datos desde el archivo .txt de tareas
+            BufferedReader br = new BufferedReader(new FileReader("lista_tareas.txt"));
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\\|");
+                if (datos.length >= 6) {
+                    tabla.addCell(datos[0].trim()); 
+                    tabla.addCell(datos[1].trim()); 
+                    tabla.addCell(datos[2].trim()); 
+                    tabla.addCell(datos[3].trim()); 
+                    tabla.addCell(datos[4].trim()); 
+                    tabla.addCell(datos[5].trim()); 
+                }
+            }
+            br.close();
+
+            documento.add(tabla);
+            documento.close();
+
+            JOptionPane.showMessageDialog(this, "¡PDF generado con éxito en la carpeta del proyecto!");
+
+        } catch (Exception e) {
+            System.out.println("Error al generar el PDF: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + e.getMessage(), "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_pmiExportarActionPerformed
+
+    private void jmiimportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiimportarActionPerformed
+        // Solo es el contenedor del menú principal, la acción real está en jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiimportarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -560,13 +728,19 @@ public class frmTareas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem jmiExportar;
+    private javax.swing.JMenu jmiimportar;
     private javax.swing.JList<String> lstClientes;
+    private javax.swing.JMenuItem pmiExportar;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtDescripcion1;
     private javax.swing.JTextField txtEntrega;
