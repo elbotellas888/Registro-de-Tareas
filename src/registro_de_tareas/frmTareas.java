@@ -52,10 +52,10 @@ public class frmTareas extends javax.swing.JFrame {
         txtTitulo1 = new javax.swing.JTextField();
         txtDescripcion1 = new javax.swing.JTextField();
         txtEntrega1 = new javax.swing.JTextField();
-        txtPrioridad1 = new javax.swing.JTextField();
-        txtEstado1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        txtPrioridad1 = new javax.swing.JComboBox<>();
+        txtEstado1 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstClientes = new javax.swing.JList<>();
@@ -73,10 +73,10 @@ public class frmTareas extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         txtEntrega = new javax.swing.JTextField();
-        txtPrioridad = new javax.swing.JTextField();
-        txtEstado = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
+        txtPrioridad = new javax.swing.JComboBox<>();
+        txtEstado = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -118,6 +118,10 @@ public class frmTareas extends javax.swing.JFrame {
         jButton2.setText("ACTUALIZAR");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
+        txtPrioridad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BAJA", "MEDIA", "ALTA", "MUY ALTA" }));
+
+        txtEstado1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRUE", "FALSE" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -134,23 +138,21 @@ public class frmTareas extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtID1)
-                    .addComponent(txtTitulo1)
-                    .addComponent(txtDescripcion1)
-                    .addComponent(txtEntrega1)
-                    .addComponent(txtPrioridad1)
-                    .addComponent(txtEstado1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtID1)
+                        .addComponent(txtTitulo1)
+                        .addComponent(txtDescripcion1)
+                        .addComponent(txtEntrega1)
+                        .addComponent(txtPrioridad1, 0, 171, Short.MAX_VALUE)
+                        .addComponent(txtEstado1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(166, 166, 166))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,16 +169,17 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtEntrega1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtPrioridad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(61, 61, 61)
-                .addComponent(jButton2))
+                    .addComponent(jLabel8)
+                    .addComponent(txtEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addGap(46, 46, 46))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Tarea"));
@@ -240,6 +243,11 @@ public class frmTareas extends javax.swing.JFrame {
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
+        txtPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BAJA", "MEDIA", "ALTA", "MUY ALTA" }));
+        txtPrioridad.addActionListener(this::txtPrioridadActionPerformed);
+
+        txtEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRUE", "FALSE" }));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -256,21 +264,20 @@ public class frmTareas extends javax.swing.JFrame {
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnGuardar)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtID)
-                        .addComponent(txtTitulo)
-                        .addComponent(txtDescripcion)
-                        .addComponent(txtEntrega)
-                        .addComponent(txtPrioridad)
-                        .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))
+                    .addComponent(txtID)
+                    .addComponent(txtTitulo)
+                    .addComponent(txtDescripcion)
+                    .addComponent(txtEntrega)
+                    .addComponent(txtPrioridad, 0, 171, Short.MAX_VALUE)
+                    .addComponent(txtEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -287,14 +294,14 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(txtEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(jLabel15)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnGuardar)
                 .addGap(43, 43, 43))
@@ -356,7 +363,7 @@ public class frmTareas extends javax.swing.JFrame {
                             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 24, Short.MAX_VALUE))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
@@ -456,8 +463,8 @@ public class frmTareas extends javax.swing.JFrame {
                         txtTitulo.getText().trim(),
                         txtDescripcion.getText().trim(),
                         txtEntrega.getText().trim(),
-                        txtPrioridad.getText().trim(),
-                        Boolean.valueOf(txtEstado.getText().trim())
+                        txtPrioridad.getSelectedItem().toString(),
+                        Boolean.valueOf(txtEstado.getSelectedItem().toString())
                 );
                 cTareas.guardar();
                 btnBuscarActionPerformed(null); // Actualiza la lista despues de guardar
@@ -474,8 +481,8 @@ public class frmTareas extends javax.swing.JFrame {
         String newTitulo = txtTitulo1.getText().trim();
         String newDescripcion = txtDescripcion1.getText().trim();
         String newEntrega = txtEntrega1.getText().trim();
-        String newPrioridad = txtPrioridad1.getText().trim();
-        Boolean newEstado = Boolean.valueOf(txtEstado1.getText().trim());
+        String newPrioridad = txtPrioridad1.getSelectedItem().toString();
+        Boolean newEstado = Boolean.valueOf(txtEstado1.getSelectedItem().toString());
         
         UpdateTarea.actualizar(newId, newTitulo, newDescripcion, newEntrega, newPrioridad, newEstado);
         
@@ -512,8 +519,8 @@ public class frmTareas extends javax.swing.JFrame {
                     txtTitulo1.setText(titulo);
                     txtDescripcion1.setText(descripcion);
                     txtEntrega1.setText(entrega);
-                    txtPrioridad1.setText(prioridad);
-                    txtEstado1.setText(estado);
+                    txtPrioridad1.setSelectedItem(prioridad);
+                    txtEstado1.setSelectedItem(estado);
 
                     jLabel23.setText(id);
                     jLabel24.setText(titulo);
@@ -677,6 +684,10 @@ public class frmTareas extends javax.swing.JFrame {
         // Solo es el contenedor del menú principal, la acción real está en jMenuItem1ActionPerformed
     }//GEN-LAST:event_jmiimportarActionPerformed
 
+    private void txtPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrioridadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrioridadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -745,12 +756,12 @@ public class frmTareas extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescripcion1;
     private javax.swing.JTextField txtEntrega;
     private javax.swing.JTextField txtEntrega1;
-    private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtEstado1;
+    private javax.swing.JComboBox<String> txtEstado;
+    private javax.swing.JComboBox<String> txtEstado1;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtID1;
-    private javax.swing.JTextField txtPrioridad;
-    private javax.swing.JTextField txtPrioridad1;
+    private javax.swing.JComboBox<String> txtPrioridad;
+    private javax.swing.JComboBox<String> txtPrioridad1;
     private javax.swing.JTextField txtTitulo;
     private javax.swing.JTextField txtTitulo1;
     // End of variables declaration//GEN-END:variables
