@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package registro_de_tareas;
 
 import java.io.BufferedReader;
@@ -9,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -20,17 +17,10 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-/**
- *
- * @author martin
- */
 public class frmTareas extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmTareas.class.getName());
 
-    /**
-     * Creates new form frmTareas
-     */
     public frmTareas() {
         initComponents();
     }
@@ -38,7 +28,7 @@ public class frmTareas extends javax.swing.JFrame {
     clsTareas UpdateTarea;
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -51,11 +41,12 @@ public class frmTareas extends javax.swing.JFrame {
         txtID1 = new javax.swing.JTextField();
         txtTitulo1 = new javax.swing.JTextField();
         txtDescripcion1 = new javax.swing.JTextField();
-        txtEntrega1 = new javax.swing.JTextField();
+        txtEntrega1 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         txtPrioridad1 = new javax.swing.JComboBox<>();
         txtEstado1 = new javax.swing.JComboBox<>();
+        btncompletar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstClientes = new javax.swing.JList<>();
@@ -72,7 +63,7 @@ public class frmTareas extends javax.swing.JFrame {
         txtID = new javax.swing.JTextField();
         txtTitulo = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        txtEntrega = new javax.swing.JTextField();
+        txtEntrega = new com.toedter.calendar.JDateChooser();
         jLabel15 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         txtPrioridad = new javax.swing.JComboBox<>();
@@ -104,23 +95,20 @@ public class frmTareas extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Actualizacion de Tarea"));
 
         jLabel2.setText("ID_Tarea:");
-
         jLabel3.setText("Titulo:");
-
         jLabel4.setText("Descripcion:");
-
         jLabel5.setText("Fecha de Entrega:");
-
         jLabel6.setText("Prioridad:");
-
         jLabel8.setText("Estado:");
 
         jButton2.setText("ACTUALIZAR");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
         txtPrioridad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BAJA", "MEDIA", "ALTA", "MUY ALTA" }));
-
         txtEstado1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRUE", "FALSE" }));
+
+        btncompletar.setText("Completar Tarea");
+        btncompletar.addActionListener(this::btncompletarActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -129,24 +117,28 @@ public class frmTareas extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtID1)
-                        .addComponent(txtTitulo1)
-                        .addComponent(txtDescripcion1)
-                        .addComponent(txtEntrega1)
-                        .addComponent(txtPrioridad1, 0, 171, Short.MAX_VALUE)
-                        .addComponent(txtEstado1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtID1)
+                            .addComponent(txtTitulo1)
+                            .addComponent(txtDescripcion1)
+                            .addComponent(txtEntrega1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(txtPrioridad1, 0, 171, Short.MAX_VALUE)
+                            .addComponent(txtEstado1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(btncompletar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -165,7 +157,7 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtEntrega1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -177,9 +169,11 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(txtEstado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(46, 46, 46))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(btncompletar))
+                .addGap(40, 40, 40))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Tarea"));
@@ -229,23 +223,16 @@ public class frmTareas extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Registro Tarea"));
 
         jLabel9.setText("ID_Tarea:");
-
         jLabel10.setText("Titulo:");
-
         jLabel11.setText("Descripcion:");
-
         jLabel12.setText("Fecha de Entrega:");
-
         jLabel13.setText("Prioridad:");
-
         jLabel15.setText("Estado:");
 
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
         txtPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BAJA", "MEDIA", "ALTA", "MUY ALTA" }));
-        txtPrioridad.addActionListener(this::txtPrioridadActionPerformed);
-
         txtEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRUE", "FALSE" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -269,7 +256,7 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(txtID)
                     .addComponent(txtTitulo)
                     .addComponent(txtDescripcion)
-                    .addComponent(txtEntrega)
+                    .addComponent(txtEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                     .addComponent(txtPrioridad, 0, 171, Short.MAX_VALUE)
                     .addComponent(txtEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -290,7 +277,7 @@ public class frmTareas extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(txtEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -310,30 +297,20 @@ public class frmTareas extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Eliminar Tarea"));
 
         jLabel16.setText("ID_Tarea:");
-
         jLabel17.setText("Titulo:");
-
         jLabel18.setText("Descripcion:");
-
         jLabel19.setText("Fecha de Entrega:");
-
         jLabel20.setText("Prioridad:");
-
         jLabel22.setText("Estado:");
 
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
         jLabel23.setText("jLabel23");
-
         jLabel24.setText("jLabel24");
-
         jLabel25.setText("jLabel25");
-
         jLabel26.setText("jLabel26");
-
         jLabel27.setText("jLabel27");
-
         jLabel28.setText("jLabel28");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -363,7 +340,7 @@ public class frmTareas extends javax.swing.JFrame {
                             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 24, Short.MAX_VALUE))))
+                                .addGap(0, 12, Short.MAX_VALUE))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
@@ -404,8 +381,7 @@ public class frmTareas extends javax.swing.JFrame {
         );
 
         jmiimportar.setText("Importar ");
-        jmiimportar.addActionListener(this::jmiimportarActionPerformed);
-
+        
         jMenuItem1.setText("Importar CSV");
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jmiimportar.add(jMenuItem1);
@@ -438,7 +414,7 @@ public class frmTareas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,58 +431,92 @@ public class frmTareas extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaString = (txtEntrega.getDate() != null) ? sdf.format(txtEntrega.getDate()) : "";
+
         clsTareas cTareas = new clsTareas(
-                        Integer.parseInt(txtID.getText().trim()),
-                        txtTitulo.getText().trim(),
-                        txtDescripcion.getText().trim(),
-                        txtEntrega.getText().trim(),
-                        txtPrioridad.getSelectedItem().toString(),
-                        Boolean.valueOf(txtEstado.getSelectedItem().toString())
-                );
-                cTareas.guardar();
-                btnBuscarActionPerformed(null); // Actualiza la lista despues de guardar
-    }//GEN-LAST:event_btnGuardarActionPerformed
+                Integer.parseInt(txtID.getText().trim()),
+                txtTitulo.getText().trim(),
+                txtDescripcion.getText().trim(),
+                fechaString, 
+                txtPrioridad.getSelectedItem().toString(),
+                txtEstado.getSelectedItem().toString() 
+        );
+        cTareas.guardar();
+        btnBuscarActionPerformed(null); 
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "¡Tarea registrada correctamente!");
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        txtID.setText("");
+        txtTitulo.setText("");
+        txtDescripcion.setText("");
+        txtEntrega.setDate(null); 
+        txtPrioridad.setSelectedIndex(0);
+        txtEstado.setSelectedIndex(0);
+    }                                          
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         if (UpdateTarea == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Primero selecciona una tarea de la lista!");
             return;
         }
         
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String newEntrega = (txtEntrega1.getDate() != null) ? sdf.format(txtEntrega1.getDate()) : "";
+        
         Integer newId = Integer.parseInt(txtID1.getText().trim());
         String newTitulo = txtTitulo1.getText().trim();
         String newDescripcion = txtDescripcion1.getText().trim();
-        String newEntrega = txtEntrega1.getText().trim();
         String newPrioridad = txtPrioridad1.getSelectedItem().toString();
-        Boolean newEstado = Boolean.valueOf(txtEstado1.getSelectedItem().toString());
+        String newEstado = txtEstado1.getSelectedItem().toString(); 
         
         UpdateTarea.actualizar(newId, newTitulo, newDescripcion, newEntrega, newPrioridad, newEstado);
         
         javax.swing.JOptionPane.showMessageDialog(this, "Tarea actualizada correctamente!");
-        btnBuscarActionPerformed(null); // Actualiza la lista despues de actualizar
-    }//GEN-LAST:event_jButton2ActionPerformed
+        btnBuscarActionPerformed(null); 
+    }                                        
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btncompletarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        if (UpdateTarea == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Primero selecciona una tarea de la lista!");
+            return;
+        }
 
-        clsTareas cTareas = new clsTareas(0, "", "", "", "", false);
-        lstClientes.setModel(cTareas.llenarLista());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String[] datos = UpdateTarea.aTexto().split("\\|");
+        Integer id = Integer.parseInt(datos[0]);
+        String titulo = datos[1];
+        String descripcion = datos[2];
+        String entrega = datos[3];
+        String prioridad = datos[4];
+        String estadoActual = datos[5].trim(); 
 
-    private void lstClientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClientesValueChanged
+        if (estadoActual.equalsIgnoreCase("TRUE")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "La tarea ya está completada.");
+        } else {
+            String nuevoEstado = "TRUE";
 
+            UpdateTarea.actualizar(id, titulo, descripcion, entrega, prioridad, nuevoEstado);
+            UpdateTarea = new clsTareas(id, titulo, descripcion, entrega, prioridad, nuevoEstado);
+
+            txtEstado1.setSelectedItem("TRUE");
+            jLabel28.setText("TRUE");
+
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Tarea marcada como completada exitosamente!");
+            btnBuscarActionPerformed(null);
+        }
+    }                                            
+
+    private void lstClientesValueChanged(javax.swing.event.ListSelectionEvent evt) {                                         
         if (!evt.getValueIsAdjusting()) {
             String registroSeleccionado = lstClientes.getSelectedValue();
 
-            if (registroSeleccionado != null) {
-
+            if (registroSeleccionado != null && !registroSeleccionado.equals("Historial de búsqueda...")) {
                 String[] datos = registroSeleccionado.split("\\|");
 
                 if (datos.length >= 6) {
-
                     String id         = datos[0].replace("ID: ", "").trim();
                     String titulo     = datos[1].replace(" Titulo: ", "").trim();
                     String descripcion = datos[2].replace(" Descripcion: ", "").trim();
@@ -514,13 +524,19 @@ public class frmTareas extends javax.swing.JFrame {
                     String prioridad  = datos[4].replace(" Prioridad: ", "").trim();
                     String estado     = datos[5].replace(" Estado: ", "").trim();
 
-
                     txtID1.setText(id);
                     txtTitulo1.setText(titulo);
                     txtDescripcion1.setText(descripcion);
-                    txtEntrega1.setText(entrega);
+                    
+                    try {
+                        java.util.Date date = new SimpleDateFormat("dd/MM/yyyy").parse(entrega);
+                        txtEntrega1.setDate(date);
+                    } catch (Exception e) {
+                        txtEntrega1.setDate(null);
+                    }
+                    
                     txtPrioridad1.setSelectedItem(prioridad);
-                    txtEstado1.setSelectedItem(estado);
+                    txtEstado1.setSelectedItem(estado.toUpperCase());
 
                     jLabel23.setText(id);
                     jLabel24.setText(titulo);
@@ -535,14 +551,14 @@ public class frmTareas extends javax.swing.JFrame {
                         descripcion,
                         entrega,
                         prioridad,
-                        Boolean.valueOf(estado)
+                        estado
                     );
                 }
             }
         }
-    }//GEN-LAST:event_lstClientesValueChanged
+    }                                        
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
         if (UpdateTarea != null) {
             int respuesta = javax.swing.JOptionPane.showConfirmDialog(this,
                     "¿Deseas eliminar la tarea: " + UpdateTarea.getDescripcion()+ "?",
@@ -552,17 +568,17 @@ public class frmTareas extends javax.swing.JFrame {
             if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
                 UpdateTarea.eliminar();
                 javax.swing.JOptionPane.showMessageDialog(this, "Tarea eliminada con éxito");
-                btnBuscarActionPerformed(null); // Actualiza la lista despues de eliminar
+                btnBuscarActionPerformed(null); 
             }
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }                                           
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        clsTareas cTareas = new clsTareas(0, "", "", "", "", false);
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        clsTareas cTareas = new clsTareas(0, "", "", "", "", "FALSE");
         lstClientes.setModel(cTareas.llenarLista());
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }                                         
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         int respuesta = JOptionPane.showConfirmDialog(this,
             "Asegúrate de que el archivo se llame 'tareas.csv' y esté en la raíz del proyecto.\nEl formato debe ser: ID,Titulo,Descripcion,Entrega,Prioridad,Estado",
             "Importación de datos desde tareas.csv",
@@ -575,10 +591,9 @@ public class frmTareas extends javax.swing.JFrame {
                 String linea;
                 int count = 0;
                 while ((linea = br.readLine()) != null) {
-                    // Asumimos que el CSV está separado por comas
+
                     String[] datos = linea.split(",");
                     if(datos.length >= 6) {
-                        // Lo convertimos al formato que usa tu TXT (separado por |)
                         String lineaTxt = datos[0] + "|" + datos[1] + "|" + datos[2] + "|" + datos[3] + "|" + datos[4] + "|" + datos[5];
                         bw.write(lineaTxt);
                         bw.newLine();
@@ -586,15 +601,15 @@ public class frmTareas extends javax.swing.JFrame {
                     }
                 }
                 JOptionPane.showMessageDialog(this, "Se importaron " + count + " tareas correctamente.");
-                btnBuscarActionPerformed(null); // Actualiza la lista en la pantalla
+                btnBuscarActionPerformed(null);
                 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al importar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }                                          
 
-    private void jmiExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiExportarActionPerformed
+    private void jmiExportarActionPerformed(java.awt.event.ActionEvent evt) {                                            
         try {
             List<clsTareas> listaTareas = new ArrayList<>();
             BufferedReader br = new BufferedReader(new FileReader("lista_tareas.txt"));
@@ -610,7 +625,7 @@ public class frmTareas extends javax.swing.JFrame {
                         datos[2].trim(),
                         datos[3].trim(),
                         datos[4].trim(),
-                        Boolean.valueOf(datos[5].trim())
+                        datos[5].trim() 
                     );
                     listaTareas.add(nuevaTarea);
                 }
@@ -630,9 +645,9 @@ public class frmTareas extends javax.swing.JFrame {
             System.out.println("Error durante la exportación a JSON: " + e.getMessage());
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jmiExportarActionPerformed
+    }                                           
 
-    private void pmiExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmiExportarActionPerformed
+    private void pmiExportarActionPerformed(java.awt.event.ActionEvent evt) {                                            
         Document documento = new Document();
 
         try {
@@ -642,7 +657,6 @@ public class frmTareas extends javax.swing.JFrame {
             documento.add(new Paragraph("Reporte Gerencial de Tareas"));
             documento.add(new Paragraph(" "));
 
-            // Creamos la estructura tabular (6 columnas para TAREAS)
             PdfPTable tabla = new PdfPTable(6);
             tabla.addCell("ID");
             tabla.addCell("TITULO");
@@ -651,7 +665,6 @@ public class frmTareas extends javax.swing.JFrame {
             tabla.addCell("PRIORIDAD");
             tabla.addCell("ESTADO");
 
-            // Lectura de datos desde el archivo .txt de tareas
             BufferedReader br = new BufferedReader(new FileReader("lista_tareas.txt"));
             String linea;
 
@@ -678,19 +691,8 @@ public class frmTareas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + e.getMessage(), "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_pmiExportarActionPerformed
+    }                                           
 
-    private void jmiimportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiimportarActionPerformed
-        // Solo es el contenedor del menú principal, la acción real está en jMenuItem1ActionPerformed
-    }//GEN-LAST:event_jmiimportarActionPerformed
-
-    private void txtPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrioridadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrioridadActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -706,10 +708,11 @@ public class frmTareas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new frmTareas().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btncompletar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -754,8 +757,8 @@ public class frmTareas extends javax.swing.JFrame {
     private javax.swing.JMenuItem pmiExportar;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtDescripcion1;
-    private javax.swing.JTextField txtEntrega;
-    private javax.swing.JTextField txtEntrega1;
+    private com.toedter.calendar.JDateChooser txtEntrega;
+    private com.toedter.calendar.JDateChooser txtEntrega1;
     private javax.swing.JComboBox<String> txtEstado;
     private javax.swing.JComboBox<String> txtEstado1;
     private javax.swing.JTextField txtID;
@@ -764,5 +767,5 @@ public class frmTareas extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> txtPrioridad1;
     private javax.swing.JTextField txtTitulo;
     private javax.swing.JTextField txtTitulo1;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

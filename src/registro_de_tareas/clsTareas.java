@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package registro_de_tareas;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
-/**
- *
- * @author Ulera
- */
 public class clsTareas {
     
     private Integer id;
@@ -18,10 +10,10 @@ public class clsTareas {
     private String descripcion;
     private String entrega; 
     private String prioridad;
-    private Boolean estado;
+    private String estado;
     
-    public clsTareas(Integer ID, String titulo, String descripcion, String entrega, String prioridad, Boolean estado) {
-        this.id = ID;  // estaba usando "id" en lugar de "ID"
+    public clsTareas(Integer ID, String titulo, String descripcion, String entrega, String prioridad, String estado) {
+        this.id = ID;  
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.entrega = entrega;
@@ -40,15 +32,12 @@ public class clsTareas {
     public void guardar() {
         mTarea tarea = new mTarea();
         String textoTarea = this.aTexto();
-
         tarea.Insertar(textoTarea);
     }
     
     public DefaultListModel<String> llenarLista(){
         mTarea MTask = new mTarea();
-        
         ArrayList<String> datos = MTask.Consultar();
-        
         DefaultListModel<String> modelLista = new DefaultListModel<>();
         
         for (String registro: datos){
@@ -58,23 +47,19 @@ public class clsTareas {
         return modelLista;
     }
     
-    public void actualizar(Integer newID, String newTitulo, String newDescripcion, String newEntrega, String newPrioridad, Boolean newEstado){
-
+    public void actualizar(Integer newID, String newTitulo, String newDescripcion, String newEntrega, String newPrioridad, String newEstado){
         String lineaOriginal = this.id + "|" + this.titulo + "|" + this.descripcion + "|" + this.entrega + "|" + this.prioridad + "|" + this.estado;
-        
         String lineaNueva = newID + "|" + newTitulo + "|" + newDescripcion + "|" + newEntrega + "|" + newPrioridad + "|" + newEstado;
         
         System.out.println("Nuevos valores: " + lineaNueva);
         System.out.println("Valores Originales: " + lineaOriginal);
         
         mTarea mTask = new mTarea();
-        
         mTask.update(lineaOriginal, lineaNueva, "lista_tareas.txt"); 
     }
     
-        public void eliminar() {
+    public void eliminar() {
         String lineaOriginal = this.id + "|" + this.titulo + "|" + this.descripcion + "|" + this.entrega + "|" + this.prioridad + "|" + this.estado;
-
         mTarea mTask = new mTarea();
         mTask.eliminarRegistro(lineaOriginal, "lista_tareas.txt"); 
     }
